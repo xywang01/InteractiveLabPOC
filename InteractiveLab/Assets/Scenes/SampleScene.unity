@@ -42188,7 +42188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f95fdea42a149ad4e87abb37f3fb0812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testMode: 0
+  testMode: 1
   nonVRObject: {fileID: 547637997}
   vRObject: {fileID: 21806667}
   vRPlayer: {fileID: 1761104824}
@@ -51393,8 +51393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320b887dc07c74843adecfe40e4e1790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  participantId: 6
-  participantSex: 1
+  participantId: 99
+  participantSex: 0
   participantAge: 23
 --- !u!4 &1633435584
 Transform:
