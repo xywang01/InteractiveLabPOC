@@ -53,8 +53,8 @@ public class MeterValues : MonoBehaviour
     }
 
     public void changeValue(int id, string val) {
-        Debug.Log(meterList);
-        Debug.Log(meterList[id].text);
+        Debug.Log(meterList.ToString());
+        Debug.Log(meterList[id].text.ToString());
         meterList[id].text = val;
     }
 }

@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     public GameObject HX;
     public GameObject HXPivot;
     private bool freeControl = true;
-    public float speed = 50f;
+    public float speed = 500f;
     public float rotateSpeed = 50f;
     Vector3 playerPosition;
     Vector3 HXPosition;

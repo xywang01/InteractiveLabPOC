@@ -40,7 +40,7 @@ public class HandPresence : MonoBehaviour
     {
         if (targetDevice.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
         {
-            Debug.Log("triggered");
+            // Debug.Log("triggered");
             handAnimator.SetFloat("Trigger", triggerValue);
         } else {
             handAnimator.SetFloat("Trigger", 0);
@@ -48,7 +48,7 @@ public class HandPresence : MonoBehaviour
 
         if (targetDevice.TryGetFeatureValue(CommonUsages.grip, out float gripValue))
         {
-            Debug.Log("gripped");
+            // Debug.Log("gripped");
             handAnimator.SetFloat("Grip", gripValue);
         } else {
             handAnimator.SetFloat("Grip", 0);

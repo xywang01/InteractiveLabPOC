@@ -12,6 +12,8 @@ public class CircleValve : MonoBehaviour
     public void TurnValve() {
         FindObjectOfType<SoundManager>().Play("TurnCircleValve");
         open = !open;
+        
+        Debug.Log($"valve {id} is turned and is now {open}");
     }
 
     public void Reset() {

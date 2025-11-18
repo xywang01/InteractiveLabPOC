@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class LocomotionController : MonoBehaviour
 {
     public XRController leftTeleportRay;
     public XRController rightTeleportRay;
-    public InputHelpers.Button teleportActivationButtion;
+    [FormerlySerializedAs("teleportActivationButtion")] public InputHelpers.Button teleportActivationButton;
     public float activationThreshold = 0.1f;
 
     public XRRayInteractor leftInteractorRay;
@@ -34,7 +35,7 @@ public class LocomotionController : MonoBehaviour
 
     public bool CheckIfActivated(XRController controller)
     {
-        InputHelpers.IsPressed(controller.inputDevice, teleportActivationButtion, out bool isActivated, activationThreshold);
+        InputHelpers.IsPressed(controller.inputDevice, teleportActivationButton, out bool isActivated, activationThreshold);
         return isActivated;
     }
 }

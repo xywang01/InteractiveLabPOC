@@ -4,21 +4,39 @@ using UnityEngine;
 
 public class TwoWayValve : MonoBehaviour
 {
+    public enum RotationAxis
+    {
+        Left,
+        Forward, 
+        Up
+    }
+    
     public string id;
-    public bool open;
+    public bool open = false;
     public GameObject target;
-    public bool rotateVertical;
-    public bool rotateHorizontal;
+    public RotationAxis rotationAxis = RotationAxis.Up;
+    // public bool rotateVertical;
+    // public bool rotateHorizontal;
+    public float rotationUnit = 90f;
 
+    private void RotateValve(float angle)
+    {
+        switch (rotationAxis)
+        {
+            case RotationAxis.Left:
+                transform.RotateAround(target.transform.position, Vector3.left, angle);
+                break;
+            case RotationAxis.Forward:
+                transform.RotateAround(target.transform.position, Vector3.forward, angle);
+                break;
+            case RotationAxis.Up:
+                transform.RotateAround(target.transform.position, Vector3.up, angle);
+                break;
+        }
+    }
     private void Start() {
-        if (!open) {
-            if (rotateVertical) {
-                transform.RotateAround(target.transform.position, Vector3.left, 90f);
-            } else if (rotateHorizontal) {
-                transform.RotateAround(target.transform.position, Vector3.forward, 90f);
-            } else {
-                transform.RotateAround(target.transform.position, Vector3.up, 90f);
-            }
+        if (open) {
+            RotateValve(rotationUnit);
         }
     }
 
@@ -28,34 +46,15 @@ public class TwoWayValve : MonoBehaviour
         FindObjectOfType<SoundManager>().Play("TurnValve");
 
         if (open) {
-            if (rotateVertical) {
-                transform.RotateAround(target.transform.position, Vector3.right, 90f);
-            } else if (rotateHorizontal) {
-                transform.RotateAround(target.transform.position, Vector3.back, 90f);
-            } else {
-                transform.RotateAround(target.transform.position, Vector3.down, 90f);
-            }
+            RotateValve(rotationUnit);
         } else {
-            if (rotateVertical) {
-                transform.RotateAround(target.transform.position, Vector3.left, 90f);
-            } else if (rotateHorizontal) {
-                transform.RotateAround(target.transform.position, Vector3.forward, 90f);
-            } else {
-                transform.RotateAround(target.transform.position, Vector3.up, 90f);
-            }
+            RotateValve(-rotationUnit);
         }
     }
 
     public void Reset() {
         if (open) {
-            if (rotateVertical) {
-                transform.RotateAround(target.transform.position, Vector3.right, 90f);
-            } else if (rotateHorizontal) {
-                transform.RotateAround(target.transform.position, Vector3.back, 90f);
-            } else {
-                transform.RotateAround(target.transform.position, Vector3.down, 90f);
-            }
-
+            RotateValve(rotationUnit);
             open = false;
         }
     }
