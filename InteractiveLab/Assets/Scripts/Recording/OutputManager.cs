@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UnityEngine;
 
 namespace Recording
@@ -22,7 +23,8 @@ namespace Recording
 
         private string _outputFolder = "Assets/BehavioralData";
         private string _outputFileName;
-        
+        private string _participantsFileName;
+
         private RecordingTable _outputTable;
 
         private void OnEnable()
@@ -46,16 +48,20 @@ namespace Recording
         // Start is called before the first frame update
         void Start()
         {
-            
+            _participantsFileName = $"{_outputFolder}/participant_data.csv";
+            if (!System.IO.File.Exists(_participantsFileName))
+            {
+                File.AppendAllText(_participantsFileName, "Timestamp,ParticipantID,ParticipantSex,ParticipantAge" + Environment.NewLine);
+            }
+
+            File.AppendAllText(_participantsFileName, $"{DateTime.Now:yyyyMMdd},{participantId},{participantSex},{participantAge}" + Environment.NewLine);
+
             // EQUIPMENT RECORDING SETUP ========================================
             _outputTable = new RecordingTable();
             _outputTable.AddColumn("ComponentID", Type.GetType("System.String"));
             _outputTable.AddColumn("ComponentState", Type.GetType("System.String"));
             _outputTable.AddColumn("SystemType", Type.GetType("System.String"));
             _outputTable.AddColumn("TestMode", Type.GetType("System.String"));
-            _outputTable.AddColumn("ParticipantID", Type.GetType("System.String"));
-            _outputTable.AddColumn("ParticipantSex", Type.GetType("System.String"));
-            _outputTable.AddColumn("ParticipantAge", Type.GetType("System.Int32"));
         }
 
         void SetOutputFileName()
@@ -78,15 +84,15 @@ namespace Recording
     
         void RecordOutput(string componentID, string componentState)
         {
+            Debug.Log("Recording Output");
+            Debug.Log(componentID);
+            Debug.Log(componentState);
             _outputTable.AddRow(new TableCell<object>[]
             {
                 new TableCell<object>("SystemType", _systemType), 
                 new TableCell<object>("ComponentID", componentID), 
                 new TableCell<object>("ComponentState", componentState),
-                new TableCell<object>("TestMode", _testMode.ToString()),
-                new TableCell<object>("ParticipantID", participantId),
-                new TableCell<object>("ParticipantSex", participantSex.ToString()),
-                new TableCell<object>("ParticipantAge", participantAge)
+                new TableCell<object>("TestMode", _testMode.ToString())
             });
             
             // save the data everytime the table is updated - overwrite!

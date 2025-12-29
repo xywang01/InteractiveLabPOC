@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "com.normalvr.normcore": "2.2.3",
+    "com.normalvr.normcore": "2.17.3",
     "com.unity.collab-proxy": "1.2.16",
     "com.unity.ide.rider": "1.2.1",
     "com.unity.ide.vscode": "1.2.3",
-    "com.unity.probuilder": "5.0.3",
+    "com.unity.probuilder": "5.2.4",
     "com.unity.progrids": "3.0.3-preview.6",
     "com.unity.render-pipelines.universal": "7.5.3",
     "com.unity.test-framework": "1.1.24",
