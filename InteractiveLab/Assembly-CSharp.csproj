@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Components\PRVValve.cs" />
      <Compile Include="Assets\Scripts\Components\ThreeWayValve.cs" />
      <Compile Include="Assets\Scripts\Components\TwoWayValve.cs" />
+     <Compile Include="Assets\Scripts\Components\Valve.cs" />
      <Compile Include="Assets\Scripts\DeltaVFunctions.cs" />
      <Compile Include="Assets\Scripts\HXSystemState.cs" />
      <Compile Include="Assets\Scripts\LeachingSystem.cs" />

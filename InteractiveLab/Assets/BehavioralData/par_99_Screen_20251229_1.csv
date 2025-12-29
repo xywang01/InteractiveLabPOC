@@ -1,0 +1,10 @@
+id,Timestamp,ComponentID,ComponentState,SystemType,TestMode
+0,5.028197,HV203,Close,PackedGreen,Screen
+1,7.786587,HV805,Turn 0,PackedGreen,Screen
+2,8.041584,HV805,Turn 1,PackedGreen,Screen
+3,8.21877,HV805,Turn 2,PackedGreen,Screen
+4,8.450074,HV805,Turn 3,PackedGreen,Screen
+5,9.498478,HV805,Turn 0,PackedGreen,Screen
+6,10.60405,FIC204,Close,PackedGreen,Screen
+7,11.80217,HV806,Turn 0,PackedGreen,Screen
+8,25.90762,HV700,Close,PackedGreen,Screen

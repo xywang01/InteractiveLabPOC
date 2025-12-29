@@ -316,21 +316,18 @@ public class PDSystemState : MonoBehaviour
     private bool CheckOpen(string id)
     {
         bool isOpen = Array.Find(twoWayValves, v => v.id == id).open;
-        OutputManagerEvents.RecordToOutput(id, isOpen ? "Open" : "Close");
         return isOpen;
     }
 
     // check if a three way valve is in the right position given valve id and target position
     private bool CheckPosition(string id, Position p) {
         bool isOpen = Array.Find(threeWayValves, v => v.id == id).position == p;
-        OutputManagerEvents.RecordToOutput(id, isOpen ? "Open" : "Close");
         return isOpen;
     }
 
     // check if a circle valve is open given valve id
     private bool CheckCircle(string id) {
         bool isOpen = Array.Find(circleValves, v => v.id == id).open;
-        OutputManagerEvents.RecordToOutput(id, isOpen ? "Open" : "Close");
         return isOpen;
     }
 
@@ -339,7 +336,6 @@ public class PDSystemState : MonoBehaviour
     {
         int nTurns = Array.Find(PRVs, v => v.id == id).turn;
         Debug.Log($"PRV valve {id} has {Array.Find(PRVs, v => v.id == id).turn} turns");
-        OutputManagerEvents.RecordToOutput(id, nTurns.ToString());
         return  nTurns >= turn;
     }
 

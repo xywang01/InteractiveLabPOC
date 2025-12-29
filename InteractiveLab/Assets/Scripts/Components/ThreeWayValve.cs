@@ -1,28 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Recording;
 using UnityEngine;
 
 public enum Position {top, left, bottom, right};
-public class ThreeWayValve : MonoBehaviour
+public class ThreeWayValve : Valve
 {
-    public string id;
     public Position position;
     public GameObject target;
     public bool rotateVertical;
     public bool rotateHorizontal;
 
-    public void TurnValve() {
+    public override void TurnValve() {
+        string positionString = "top";
+
         FindObjectOfType<SoundManager>().Play("TurnValve");
+
 
         if (position == Position.top) {
             position = Position.right;
+            positionString = "right";
         } else if (position == Position.right) {
             position = Position.bottom;
+            positionString = "bottom";
         } else if (position == Position.bottom) {
             position = Position.left;
+            positionString = "left";
         } else {
             position = Position.top;
         }
+
+        OutputManagerEvents.RecordToOutput(id, positionString);
 
         if (rotateVertical) {
             transform.RotateAround(target.transform.position, Vector3.left, 90f);

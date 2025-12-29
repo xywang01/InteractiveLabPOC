@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TwoWayValve : MonoBehaviour
+public class TwoWayValve : Valve
 {
     public enum RotationAxis
     {
@@ -11,8 +11,6 @@ public class TwoWayValve : MonoBehaviour
         Up
     }
     
-    public string id;
-    public bool open = false;
     public GameObject target;
     public RotationAxis rotationAxis = RotationAxis.Up;
     // public bool rotateVertical;
@@ -40,7 +38,9 @@ public class TwoWayValve : MonoBehaviour
         }
     }
 
-    public void TurnValve() {
+    public override void TurnValve() {
+        base.TurnValve();
+
         open = !open;
 
         FindObjectOfType<SoundManager>().Play("TurnValve");

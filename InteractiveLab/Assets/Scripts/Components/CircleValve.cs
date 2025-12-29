@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircleValve : MonoBehaviour
+public class CircleValve : Valve
 {
-    public string id;
-    public bool open;
     public bool rotateVertical;
     public bool rotateHorizontal;
 
-    public void TurnValve() {
+    public override void TurnValve() {
+        base.TurnValve();
+
         FindObjectOfType<SoundManager>().Play("TurnCircleValve");
         open = !open;
         
