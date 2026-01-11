@@ -228,9 +228,9 @@ public class PDSystemState : MonoBehaviour
         var steps = new List<(int currState, Func<bool> condition, Action action)>
         {
             // todo make them into a two-way valve (from three-way) for now because i can't close the valve in VR
-            // (1, () => CheckPosition("HV700", Position.bottom), () => { SetState(1); UpdateGaugeValue("Temp", 10); }),
-            // (2, () => CheckPosition("HV701", Position.bottom), () => SetState(2)),
-            (1, () => CheckOpen("HV700"), () => { SetState(1); UpdateGaugeValue("Temp", 10); }),
+            (1, () => CheckPosition("HV700", Position.TopRight), () => { SetState(1); UpdateGaugeValue("Temp", 10); }),
+            /*(2, () => CheckPosition("HV701", Position.bottom), () => SetState(2)),*/
+            /*(1, () => CheckOpen("HV700"), () => { SetState(1); UpdateGaugeValue("Temp", 10); }),*/
             (2, () => CheckOpen("HV701"), () => SetState(2)),
             // todo same as above make FIC703 a two-way valve for now
             // (3, () => CheckTurn("FIC703", 1), () => SetState(3)),

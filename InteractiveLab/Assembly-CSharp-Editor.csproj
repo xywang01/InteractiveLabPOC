@@ -253,10 +253,10 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.25f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="Normal.Realtime">
- <HintPath>C:/Users/USER/Unity/InteractiveLabPOC/InteractiveLab/Library/PackageCache/com.normalvr.normcore@2.17.3/Normal.Realtime/2019/UnityEditor/Normal.Realtime.dll</HintPath>
+ <HintPath>C:/Users/USER/Unity/InteractiveLabPOC/InteractiveLab/Library/PackageCache/com.normalvr.normcore@2.18.0/Normal.Realtime/2019/UnityEditor/Normal.Realtime.dll</HintPath>
  </Reference>
  <Reference Include="Normal.Realtime.Editor">
- <HintPath>C:/Users/USER/Unity/InteractiveLabPOC/InteractiveLab/Library/PackageCache/com.normalvr.normcore@2.17.3/Normal.Realtime.Editor/2019/Normal.Realtime.Editor.dll</HintPath>
+ <HintPath>C:/Users/USER/Unity/InteractiveLabPOC/InteractiveLab/Library/PackageCache/com.normalvr.normcore@2.18.0/Normal.Realtime.Editor/2019/Normal.Realtime.Editor.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.NRefactory">
  <HintPath>C:/Users/USER/Unity/InteractiveLabPOC/InteractiveLab/Library/PackageCache/com.unity.render-pipelines.core@7.5.3/Editor/ShaderGenerator/ICSharpCode.NRefactory.dll</HintPath>

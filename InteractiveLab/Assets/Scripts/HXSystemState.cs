@@ -346,11 +346,11 @@ public class HXSystemState : MonoBehaviour
     private void PartOne() {
         Debug.Log("In Part One");
         var steps = new List<(int currState, Func<bool> condition, Action action)> {
-            (1, () => CheckPosition("V122", Position.left), () => SetState(1, "70.0", "6.0")),
+            (1, () => CheckPosition("V122", Position.Left), () => SetState(1, "70.0", "6.0")),
             (2, () => CheckCircle("V121"), () => SetState(2, "78.0", "8.0")),
-            (3, () => CheckPosition("V131", Position.left), () => SetState(3)),
-            (4, () => CheckPosition("V119", Position.left) && CheckPosition("V123", Position.left), () => SetState(4)),
-            (5, () => CheckPosition("V124", Position.left) && CheckOpen("V125"), () => SetState(5)),
+            (3, () => CheckPosition("V131", Position.Left), () => SetState(3)),
+            (4, () => CheckPosition("V119", Position.Left) && CheckPosition("V123", Position.Left), () => SetState(4)),
+            (5, () => CheckPosition("V124", Position.Left) && CheckOpen("V125"), () => SetState(5)),
             (6, () => CheckCircle("V132"), () => SetState(6)),
             (7, () => CheckTurn("PRV10", 1), () => SetState(7)),
             (8, () => CheckCircle("V111"), () => SetState(8)),
@@ -370,10 +370,10 @@ public class HXSystemState : MonoBehaviour
         
         // Define each step with conditions and actions in a sequence for Part 2
         var steps = new List<(Func<bool> condition, Action action)> {
-            (() => CheckPosition("V122", Position.left), () => SetState(1)),
+            (() => CheckPosition("V122", Position.Left), () => SetState(1)),
             (() => CheckCircle("V121"), () => SetState(2)),
-            (() => CheckPosition("V119", Position.left), () => SetState(3)),
-            (() => CheckPosition("V123", Position.left), () => SetState(4)),
+            (() => CheckPosition("V119", Position.Left), () => SetState(3)),
+            (() => CheckPosition("V123", Position.Left), () => SetState(4)),
             (() => CheckCircle("V132"), () => SetState(5)),
             (() => CheckTurn("PRV10", 1), () => SetState(6)),
             (() => CheckCircle("V111"), () => SetState(7)),
@@ -395,12 +395,12 @@ public class HXSystemState : MonoBehaviour
         
         // Define each step with conditions and actions for Part 3
         var steps = new List<(Func<bool> condition, Action action)> {
-            (() => CheckPosition("V112", Position.left) && CheckPosition("V113", Position.left), () => SetState(1)),
+            (() => CheckPosition("V112", Position.Left) && CheckPosition("V113", Position.Left), () => SetState(1)),
             (() => !CheckOpen("V115") && !CheckOpen("V116"), () => SetState(2)),
             (() => CheckCircle("V128") && CheckTurn("PRV12", 1), () => SetState(3)),
-            (() => CheckPosition("V131", Position.left), () => SetState(4)),
+            (() => CheckPosition("V131", Position.Left), () => SetState(4)),
             (() => CheckOpen("V126"), () => SetState(5)),
-            (() => CheckPosition("V118", Position.left), () => SetState(6)),
+            (() => CheckPosition("V118", Position.Left), () => SetState(6)),
             (() => CheckCircle("V130"), () => SetState(7)),
             (() => CheckTurn("PRV10", 3), () => SetState(8)),
             (() => CheckTurn("PRV10", 1), () => SetState(9)),
@@ -425,12 +425,12 @@ public class HXSystemState : MonoBehaviour
 
         // Define each step with conditions and actions for the Shutdown process
         var steps = new List<(Func<bool> condition, Action action)> {
-            (() => !CheckCircle("V111") && CheckPosition("V112", Position.top) && CheckPosition("V113", Position.top), () => SetState(1)),
-            (() => !CheckOpen("V115") && !CheckOpen("V116") && CheckPosition("V118", Position.top), () => SetState(2)),
-            (() => CheckPosition("V122", Position.top) && CheckPosition("V123", Position.top) && CheckPosition("V124", Position.top), () => SetState(3)),
+            (() => !CheckCircle("V111") && CheckPosition("V112", Position.Top) && CheckPosition("V113", Position.Top), () => SetState(1)),
+            (() => !CheckOpen("V115") && !CheckOpen("V116") && CheckPosition("V118", Position.Top), () => SetState(2)),
+            (() => CheckPosition("V122", Position.Top) && CheckPosition("V123", Position.Top) && CheckPosition("V124", Position.Top), () => SetState(3)),
             (() => !CheckOpen("V125") && !CheckOpen("V126"), () => SetState(4)),
             (() => !CheckCircle("V128") && !CheckCircle("V130"), () => SetState(5)),
-            (() => CheckPosition("V131", Position.top) && !CheckCircle("V133") && !CheckCircle("V134"), CompleteShutdown)
+            (() => CheckPosition("V131", Position.Top) && !CheckCircle("V133") && !CheckCircle("V134"), CompleteShutdown)
         };
 
         foreach (var (condition, action) in steps) {

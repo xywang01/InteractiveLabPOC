@@ -61,7 +61,6 @@ namespace Recording
             _outputTable.AddColumn("ComponentID", Type.GetType("System.String"));
             _outputTable.AddColumn("ComponentState", Type.GetType("System.String"));
             _outputTable.AddColumn("SystemType", Type.GetType("System.String"));
-            _outputTable.AddColumn("TestMode", Type.GetType("System.String"));
         }
 
         void SetOutputFileName()
@@ -91,8 +90,7 @@ namespace Recording
             {
                 new TableCell<object>("SystemType", _systemType), 
                 new TableCell<object>("ComponentID", componentID), 
-                new TableCell<object>("ComponentState", componentState),
-                new TableCell<object>("TestMode", _testMode.ToString())
+                new TableCell<object>("ComponentState", componentState)
             });
             
             // save the data everytime the table is updated - overwrite!
