@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 
 public enum Position {Top, TopTopRight, TopRight, TopRightRight, Right, BottomRightRight, BottomRight, BottomBottomRight, Bottom, BottomBottomLeft, BottomLeft, BottomLeftLeft, Left, TopLeftLeft, TopLeft, TopTopLeft};
 public enum Divisions {halves, quarters, eigths, sixteenths}
+public enum Direction {right, left}
 public class ThreeWayValve : Valve
 {
     public Position position;
@@ -13,6 +14,7 @@ public class ThreeWayValve : Valve
     public bool rotateVertical;
     public bool rotateHorizontal;
     public Divisions division = Divisions.quarters;
+    public Direction direction = Direction.right;
 
     public override void TurnValve() {
         string positionString = "top";
@@ -24,22 +26,22 @@ public class ThreeWayValve : Valve
         {
             position = (Position)(((int)position + 8) % 16);
             positionString = position.ToString();
-            turnAngle = -180f;
+            turnAngle = 180f * (direction == Direction.right ? -1f : 1f);
         } else if (division == Divisions.quarters)
         {
             position = (Position)(((int)position + 4) % 16);
             positionString = position.ToString();
-            turnAngle = -90f;
+            turnAngle = 90f * (direction == Direction.right ? -1f : 1f);
         } else if (division == Divisions.eigths)
         {
             position = (Position)(((int)position + 2) % 16);
             positionString = position.ToString();
-            turnAngle = -45f;
+            turnAngle = 45f * (direction == Direction.right ? -1f : 1f);
         } else
         {
             position = (Position)(((int)position + 1) % 16);
             positionString = position.ToString();
-            turnAngle = -22.5f;
+            turnAngle = 22.5f * (direction == Direction.right ? -1f : 1f);
         }
 
         positionString = Regex.Replace(position.ToString(), "(\\B[A-Z])", " $1");
