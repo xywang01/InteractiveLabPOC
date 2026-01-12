@@ -264,10 +264,11 @@ public class PDSystemState : MonoBehaviour
             (7, () => CheckOpen("HV802"), () => SetState(7)),
             (8, () => CheckTurn("PRV803", 1), () => { SetState(8); UpdateGaugeValue("PI801", 3); CompletePartTwo(); }),*/
 
-            (3, () => !CheckOpen("HV403") && CheckOpen("HV402") && CheckOpen("HV404"), () => SetState(3)),
-            (4, () => CheckTurn("FIC401", 1), () => SetState(4)),
-            (5, () => CheckOpen("HV802"), () => SetState(5)),
-            (6, () => CheckTurn("PRV803", 1), () => { SetState(6); UpdateGaugeValue("PI801", 3); CompletePartTwo(); }),
+            (3, () => !CheckOpen("HV403"), () => SetState(3)),
+            (4, () => !CheckOpen("HV403") && CheckOpen("HV402") && CheckOpen("HV404"), () => SetState(4)),
+            (5, () => CheckTurn("FIC401", 1), () => SetState(5)),
+            (6, () => CheckOpen("HV802"), () => SetState(6)),
+            (7, () => CheckTurn("PRV803", 1), () => { SetState(7); UpdateGaugeValue("PI801", 3); CompletePartTwo(); }),
         };
 
         ExecuteSteps(steps);
