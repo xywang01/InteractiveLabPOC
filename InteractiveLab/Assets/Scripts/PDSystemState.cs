@@ -233,13 +233,13 @@ public class PDSystemState : MonoBehaviour
             /*(1, () => CheckOpen("HV700"), () => { SetState(1); UpdateGaugeValue("Temp", 10); }),*/
             /*(2, () => CheckOpen("HV701"), () => SetState(2)),*/
             // todo same as above make FIC703 a two-way valve for now
-            // (3, () => CheckTurn("FIC703", 1), () => SetState(3)),
-            (3, () => CheckOpen("FIC703"), () => SetState(3)),
+            (3, () => CheckTurn("FIC703", 1), () => SetState(3)),
+            /*(3, () => CheckOpen("FIC703"), () => SetState(3)),*/
             (4, () => CheckTurn("HV806", 1), () => SetState(4)),
             (5, () => CheckTurn("PRV807", 1), () => { SetState(5); UpdateGaugeValue("PI802", 10); }),
             (6, () => CheckCircle("HV704") && CheckCircle("HV705"), () => SetState(6)),
             (7, () => true, CompletePartOne)
-            // (7, () => checkOpen("HV901"), CompletePartOne)
+            /*(7, () => checkOpen("HV901"), () => CompletePartOne())*/
         };
 
         ExecuteSteps(steps);
@@ -252,16 +252,22 @@ public class PDSystemState : MonoBehaviour
         {
             (1, () => CheckOpen("HV203"), () => SetState(1)),
             // todo FIC204 should be of type PRV (count turns), but for now use it as a two-way valve so open/close is a binary operation
-            // (2, () => CheckTurn("FIC204", 1), () => SetState(2)),
-            (2, () => CheckOpen("FIC204"), () => SetState(2)),
+            (2, () => CheckTurn("FIC204", 1), () => SetState(2)),
+            /*(2, () => CheckOpen("FIC204"), () => SetState(2)),*/
             // (3, () => CheckOpen("HV402") && !CheckOpen("HV403") && CheckOpen("HV404"), () => SetState(3)),
             // (4, () => CheckTurn("FIC401", 1), () => SetState(4)),  // this should be the correct one, but because we later need to shut it down, will change the implementation to a two-way valve so the actions are binary
-            (3, () => !CheckOpen("HV403"), () => SetState(3)),
+
+            /*(3, () => !CheckOpen("HV403"), () => SetState(3)),
             (4, () => CheckOpen("HV402"), () => SetState(4)),
             (5, () => CheckOpen("HV404"), () => SetState(5)),
-            (6, () => CheckOpen("FIC401"), () => SetState(6)),
+            (6, () => CheckTurn("FIC401", 1), () => SetState(6)),
             (7, () => CheckOpen("HV802"), () => SetState(7)),
-            (8, () => CheckTurn("PRV803", 1), () => { SetState(8); UpdateGaugeValue("PI801", 3); CompletePartTwo(); }),
+            (8, () => CheckTurn("PRV803", 1), () => { SetState(8); UpdateGaugeValue("PI801", 3); CompletePartTwo(); }),*/
+
+            (3, () => !CheckOpen("HV403") && CheckOpen("HV402") && CheckOpen("HV404"), () => SetState(3)),
+            (4, () => CheckTurn("FIC401", 1), () => SetState(4)),
+            (5, () => CheckOpen("HV802"), () => SetState(5)),
+            (6, () => CheckTurn("PRV803", 1), () => { SetState(6); UpdateGaugeValue("PI801", 3); CompletePartTwo(); }),
         };
 
         ExecuteSteps(steps);
@@ -274,11 +280,11 @@ public class PDSystemState : MonoBehaviour
         
         var steps = new List<(int currState, Func<bool> condition, Action action)>
         {
-            (1, () => !CheckOpen("FIC401"), () => SetState(1)),
-            // (1, () => CheckTurn("FIC401", 0), () => SetState(1)),  // the original was incorrect since this is a PRV need to check for turns
+            /*(1, () => !CheckOpen("FIC401"), () => SetState(1)),*/
+            (1, () => CheckTurn("FIC401", 0), () => SetState(1)),  // the original was incorrect since this is a PRV need to check for turns
             // todo FIC204 should be of type PRV (count turns), but for now use it as a two-way valve so open/close is a binary operation
-            // (2, () => CheckTurn("FIC204", 0), () => SetState(2)),
-            (2, () => !CheckOpen("FIC204"), () => SetState(2)),
+            (2, () => CheckTurn("FIC204", 0), () => SetState(2)),
+            /*(2, () => !CheckOpen("FIC204"), () => SetState(2)),*/
             (3, () => !CheckOpen("HV203"), () => SetState(3)),
             // (4, () => !CheckOpen("HS201"), () => SetState(4)),  // todo there is no HS201!!!
             (4, () => true, () => SetState(4)),
