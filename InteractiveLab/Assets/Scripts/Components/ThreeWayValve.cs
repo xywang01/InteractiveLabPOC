@@ -15,53 +15,56 @@ public class ThreeWayValve : Valve
     public bool rotateHorizontal;
     public Divisions division = Divisions.quarters;
     public Direction direction = Direction.right;
+    public Direction labelDirection = Direction.right;
 
-    public int maxTurns = 17;
-    private int currTurns = 0;
+    public int maxTurns = 16;
+    private int currTurns = -1;
     private Position originalPosition;
     private Quaternion startRotation;
 
     public void Start()
     {
         originalPosition = position;
-        startRotation = transform.localRotation;
     }
 
     public override void TurnValve() {
         string positionString = "top";
         float turnAngle;
+        currTurns++;
 
         FindObjectOfType<SoundManager>().Play("TurnValve");
 
-        if (currTurns >= maxTurns)
+        if (division == Divisions.halves)
         {
-            position = originalPosition;
-            positionString = position.ToString();
-            transform.localRotation = startRotation;
-            turnAngle = 0f;
-        } else if (division == Divisions.halves)
-        {
-            position = (Position)(((int)position + 8) % 16);
+            position = (Position)(((int)position + (8 * (labelDirection == Direction.left ? -1f : 1f))) % 16);
             positionString = position.ToString();
             turnAngle = 180f * (direction == Direction.right ? -1f : 1f);
         } else if (division == Divisions.quarters)
         {
-            position = (Position)(((int)position + 4) % 16);
+            position = (Position)(((int)position + (4 * (labelDirection == Direction.left ? -1f : 1f))) % 16);
             positionString = position.ToString();
             turnAngle = 90f * (direction == Direction.right ? -1f : 1f);
         } else if (division == Divisions.eigths)
         {
-            position = (Position)(((int)position + 2) % 16);
+            position = (Position)(((int)position + (2 * (labelDirection == Direction.left ? -1f : 1f))) % 16);
             positionString = position.ToString();
             turnAngle = 45f * (direction == Direction.right ? -1f : 1f);
         } else
         {
-            position = (Position)(((int)position + 1) % 16);
+            position = (Position)(((int)position + (1 * (labelDirection == Direction.left ? -1f : 1f))) % 16);
             positionString = position.ToString();
             turnAngle = 22.5f * (direction == Direction.right ? -1f : 1f);
         }
 
-        positionString = Regex.Replace(position.ToString(), "(\\B[A-Z])", " $1");
+        if (currTurns >= maxTurns)
+        {
+            currTurns = -1;
+            position = originalPosition;
+            positionString = position.ToString();
+            turnAngle = -1 * ((maxTurns * turnAngle));
+        }
+
+            positionString = Regex.Replace(position.ToString(), "(\\B[A-Z])", " $1");
         OutputManagerEvents.RecordToOutput(id, positionString);
 
         if (rotateVertical) {
