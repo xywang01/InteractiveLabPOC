@@ -16,13 +16,30 @@ public class ThreeWayValve : Valve
     public Divisions division = Divisions.quarters;
     public Direction direction = Direction.right;
 
+    public int maxTurns = 17;
+    private int currTurns = 0;
+    private Position originalPosition;
+    private Quaternion startRotation;
+
+    public void Start()
+    {
+        originalPosition = position;
+        startRotation = transform.localRotation;
+    }
+
     public override void TurnValve() {
         string positionString = "top";
         float turnAngle;
 
         FindObjectOfType<SoundManager>().Play("TurnValve");
 
-        if (division == Divisions.halves)
+        if (currTurns >= maxTurns)
+        {
+            position = originalPosition;
+            positionString = position.ToString();
+            transform.localRotation = startRotation;
+            turnAngle = 0f;
+        } else if (division == Divisions.halves)
         {
             position = (Position)(((int)position + 8) % 16);
             positionString = position.ToString();
