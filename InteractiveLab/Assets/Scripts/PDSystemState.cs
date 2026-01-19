@@ -228,7 +228,7 @@ public class PDSystemState : MonoBehaviour
         var steps = new List<(int currState, Func<bool> condition, Action action)>
         {
             // todo make them into a two-way valve (from three-way) for now because i can't close the valve in VR
-            (1, () => CheckPosition("HV700", Position.TopRight), () => { SetState(1); UpdateGaugeValue("Temp", 10); }),
+            (1, () => CheckPosition("HV700", Position.Bottom), () => { SetState(1); UpdateGaugeValue("Temp", 10); }),
             (2, () => CheckPosition("HV701", Position.BottomRightRight), () => SetState(2)),
             /*(1, () => CheckOpen("HV700"), () => { SetState(1); UpdateGaugeValue("Temp", 10); }),*/
             /*(2, () => CheckOpen("HV701"), () => SetState(2)),*/
@@ -281,18 +281,11 @@ public class PDSystemState : MonoBehaviour
         
         var steps = new List<(int currState, Func<bool> condition, Action action)>
         {
-            /*(1, () => !CheckOpen("FIC401"), () => SetState(1)),*/
             (1, () => CheckTurn("FIC401", 0), () => SetState(1)),  // the original was incorrect since this is a PRV need to check for turns
-            // todo FIC204 should be of type PRV (count turns), but for now use it as a two-way valve so open/close is a binary operation
-            (2, () => CheckTurn("FIC204", 0), () => SetState(2)),
-            /*(2, () => !CheckOpen("FIC204"), () => SetState(2)),*/
-            (3, () => !CheckOpen("HV203"), () => SetState(3)),
-            // (4, () => !CheckOpen("HS201"), () => SetState(4)),  // todo there is no HS201!!!
-            (4, () => true, () => SetState(4)),
-            (5, () => CheckOpen("HV303"), () => SetState(5)),
-            // todo: HS301 is just a switch and not implemented
-            (6, () => !CheckOpen("HV402") && CheckOpen("HV403"), () => SetState(6)),
-            (7, () => !CheckOpen("FIC703") && !CheckOpen("HV701"), CompletePartThree) // todo update instructions
+            (2, () => CheckTurn("FIC204", 0) && !CheckOpen("HV203") && !CheckOpen("HS201"), () => SetState(2)),
+            (3, () => CheckOpen("HV303"), () => SetState(3)),
+            (4, () => !CheckOpen("HV402") && CheckOpen("HV403") && !CheckOpen("HS301"), () => SetState(4)),
+            (5, () => !CheckOpen("FIC703") && !CheckOpen("HV701"), CompletePartThree) // todo update instructions
         };
 
         ExecuteSteps(steps);
