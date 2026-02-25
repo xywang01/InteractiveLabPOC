@@ -44,6 +44,7 @@ namespace Recording
         private string _systemType;
 
         private string _outputFolder;
+        public string OutputFolder => _outputFolder;
         private string _interactionOutputFileName;
         private string _movementOutputFileName;
         private string _visionOutputFileName;
@@ -207,6 +208,7 @@ namespace Recording
                 {
                     _lastPlayerLocation = _playerPosition.position;
                     string recordLocation = _lastPlayerLocation.ToString();
+                    StartCoroutine(MapRecorder.Instance.GenerateMap());
                     RecordMovementOutput(recordLocation);
                 }
 
