@@ -8,9 +8,10 @@ public class MapRecorder : MonoBehaviour
     public Camera cam;
     public int textureSize = 1024;
 
-    private List<Transform> locations = new List<Transform>();
+    private List<Vector3> positions = new List<Vector3>();
     public Recording.OutputManager outputManager;
     public GameObject markerPrefab;
+    public Material lineMaterial;
 
     public static MapRecorder Instance;
 
@@ -30,10 +31,11 @@ public class MapRecorder : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        locations.Add(newLocation);
         Vector3 newPosition = newLocation.position;
         newPosition.y += 1.5f;
         Instantiate(markerPrefab, newPosition, Quaternion.identity);
+        positions.Add(newPosition);
+        DrawLine();
 
         RenderTexture currentRT = RenderTexture.active;
         RenderTexture.active = cam.targetTexture;
@@ -54,35 +56,23 @@ public class MapRecorder : MonoBehaviour
         File.WriteAllBytes(filePath, bytes);
     }
 
-    //private void PositionCamera()
-    //{
-    //    if (locations.Count == 0) return;
+    private void DrawLine()
+    {
+        if (positions.Count < 2)
+        {
+            return;
+        }
 
-    //    Vector3 min = locations[0].position;
-    //    Vector3 max = locations[0].position;
+        GameObject lineObj = new GameObject("MapLine");
+        lineObj.layer = LayerMask.NameToLayer("MapRecording");
 
-    //    // 🔁 LOOP through all positions
-    //    foreach (Transform t in locations)
-    //    {
-    //        Vector3 pos = t.position;
+        LineRenderer lr = lineObj.AddComponent<LineRenderer>();
+        lr.positionCount = 2;
+        lr.SetPosition(0, positions[positions.Count - 1]);
+        lr.SetPosition(1, positions[positions.Count - 2]);
 
-    //        min = Vector3.Min(min, pos);
-    //        max = Vector3.Max(max, pos);
-    //    }
-
-    //    // center of all points
-    //    Vector3 center = (min + max) / 2f;
-
-    //    // size of area
-    //    float width = max.x - min.x;
-    //    float height = max.z - min.z;
-
-    //    float size = Mathf.Max(width, height);
-
-    //    // position camera above center
-    //    mapCamera.transform.position = new Vector3(center.x, 50f, center.z);
-
-    //    // adjust zoom
-    //    mapCamera.orthographicSize = size / 2f + 5f;
-    //}
+        lr.widthMultiplier = 0.1f;
+        lr.material = lineMaterial;
+        lr.useWorldSpace = true;
+    }
 }

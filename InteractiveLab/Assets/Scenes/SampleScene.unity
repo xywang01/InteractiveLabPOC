@@ -19591,6 +19591,7 @@ MonoBehaviour:
   outputManager: {fileID: 1633435583}
   markerPrefab: {fileID: 1206149012652978065, guid: 3bdc7ac87c1498f40a66de2422fd8cae,
     type: 3}
+  lineMaterial: {fileID: 2100000, guid: f024eb110adf4b24d83fe06615fd238c, type: 2}
 --- !u!4 &596054695
 Transform:
   m_ObjectHideFlags: 0
