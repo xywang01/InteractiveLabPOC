@@ -21,7 +21,7 @@ namespace Recording
 
         private string _systemType;
 
-        private string _outputFolder = "Assets/BehavioralData";
+        private string _outputFolder;
         private string _outputFileName;
         private string _participantsFileName;
 
@@ -48,7 +48,13 @@ namespace Recording
         // Start is called before the first frame update
         void Start()
         {
-            _participantsFileName = $"{_outputFolder}/participant_data.csv";
+            _outputFolder = Path.Combine(Application.persistentDataPath, $"par_{ participantId}");
+
+            if (!Directory.Exists(_outputFolder))
+            {
+                Directory.CreateDirectory(_outputFolder);
+            }
+
             _participantsFileName = Application.persistentDataPath + "/participant_data.csv";
             if (!System.IO.File.Exists(_participantsFileName))
             {
@@ -67,8 +73,8 @@ namespace Recording
         void SetOutputFileName()
         {
             // Create output file name
-            _outputFileName = $"{_outputFolder}/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
-            _outputFileName = Application.persistentDataPath + $"/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
+            //_outputFileName = $"{_outputFolder}/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
+            _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
 
             // check for duplicate files
             int fileCount = 0;
