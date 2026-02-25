@@ -54,6 +54,8 @@ namespace Recording
         private RecordingTable _movementOutputTable;
         private RecordingTable _visionOutputTable;
 
+        private bool isSetUp = false;
+
         private void OnEnable()
         {
             OutputManagerEvents.OnRecord += RecordOutput;
@@ -73,8 +75,10 @@ namespace Recording
         }
 
         // Start is called before the first frame update
-        void Start()
+        public void Setup(string age, string id, string sex)
         {
+            AssignValues(age, id, sex);
+
             if (_testMode == TestMode.Screen)
             {
                 _playerPosition = screenPosition;
@@ -86,7 +90,7 @@ namespace Recording
                 _playerCamera = VRCamera;
             }
 
-                _outputFolder = Path.Combine(Application.persistentDataPath, $"par_{participantId}");
+            _outputFolder = Path.Combine(Application.persistentDataPath, $"par_{participantId}");
 
             if (!Directory.Exists(_outputFolder))
             {
@@ -114,6 +118,30 @@ namespace Recording
             // MOVEMENT RECORDING SETUP ========================================
             _visionOutputTable = new RecordingTable();
             _visionOutputTable.AddColumn("Angle", Type.GetType("System.String"));
+
+            if (!_testModeIsSet)
+            {
+                _testMode = ModeManagerEvents.GetCurrentMode();
+            }
+
+            SetOutputFileName();
+
+            isSetUp = true;
+        }
+
+        private void AssignValues(string age, string id, string sex)
+        {
+            participantId = id;
+            participantAge = int.Parse(age);
+
+            if (sex.ToLower() == "male")
+            {
+                participantSex = Sex.Male;
+            }
+            else
+            {
+                participantSex = Sex.Female;
+            }
         }
 
         void SetOutputFileName()
@@ -241,11 +269,16 @@ namespace Recording
         // Update is called once per frame
         void Update()
         {
-            if (!_testModeIsSet)
+            if (!isSetUp)
             {
-                _testMode = ModeManagerEvents.GetCurrentMode();
-                SetOutputFileName();
+                return;
             }
+
+            //if (!_testModeIsSet)
+            //{
+            //    _testMode = ModeManagerEvents.GetCurrentMode();
+            //    SetOutputFileName();
+            //}
 
             MovementCheck();
             VisionCheck();

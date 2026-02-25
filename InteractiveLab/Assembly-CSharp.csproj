@@ -76,6 +76,7 @@
      <Compile Include="Assets\Scripts\MouseLook.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
      <Compile Include="Assets\Scripts\PDSystemState.cs" />
+     <Compile Include="Assets\Scripts\ParticipantInfo.cs" />
      <Compile Include="Assets\Scripts\PauseMenu.cs" />
      <Compile Include="Assets\Scripts\Recording\MapRecorder.cs" />
      <Compile Include="Assets\Scripts\Recording\OutputManager.cs" />

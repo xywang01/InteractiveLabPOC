@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     public float rotateSpeed = 50f;
     Vector3 playerPosition;
     Vector3 HXPosition;
+    private bool locked = true;
 
     void Start() {
         playerPosition = transform.position;
@@ -22,6 +23,11 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (locked)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown("left shift")) {
             freeControl = !freeControl;
             if (freeControl) {
@@ -52,5 +58,10 @@ public class Movement : MonoBehaviour
                 HX.transform.RotateAround(HXPivot.transform.position, Vector3.up, -rotateSpeed * Time.deltaTime);
             }
         }
+    }
+
+    public void ActivateMovement()
+    {
+        locked = false;
     }
 }
