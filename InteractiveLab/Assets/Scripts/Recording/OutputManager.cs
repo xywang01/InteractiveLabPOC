@@ -105,22 +105,6 @@ namespace Recording
         void SetOutputFileName()
         {
             // Create output file name
-            //switch (type)
-            //{
-            //    case FileOutputType.Interaction:
-            //        _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_interaction_{DateTime.Now:yyyyMMdd}.csv";
-            //        break;
-            //    case FileOutputType.Movement:
-            //        _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_movement_{DateTime.Now:yyyyMMdd}.csv";
-            //        break;
-            //    case FileOutputType.Vision:
-            //        _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_vision_{DateTime.Now:yyyyMMdd}.csv";
-            //        break;
-            //    default:
-            //        _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
-            //        break;
-            //}
-
             _interactionOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_interaction_{DateTime.Now:yyyyMMdd}.csv";
             _movementOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_movement_{DateTime.Now:yyyyMMdd}.csv";
             _visionOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_vision_{DateTime.Now:yyyyMMdd}.csv";
@@ -182,24 +166,14 @@ namespace Recording
             _movementOutputTable.ToCsv(_movementOutputFileName, allowOverwrite: true);
         }
 
-        // Update is called once per frame
-        void Update()
+        private void MovementCheck()
         {
-            //Debug.Log(_lastPlayerLocation);
-            //Debug.Log(_playerPosition.position);
-            if (!_testModeIsSet)
-            {
-                _testMode = ModeManagerEvents.GetCurrentMode();
-                SetOutputFileName();
-            }
-
             if (movementOffsetTimer <= movementOffsetTimeCheck)
             {
                 movementOffsetTimer += Time.deltaTime;
             }
             else
             {
-                Debug.Log("Move check");
                 _lastPlayerLocation.y = 0;
                 Vector3 currentLocation = _playerPosition.position;
                 currentLocation.y = 0;
@@ -208,7 +182,6 @@ namespace Recording
 
                 if (distance.sqrMagnitude >= movementOffsetDistanceCheck)
                 {
-                    Debug.Log("Move record");
                     _lastPlayerLocation = _playerPosition.position;
                     string recordLocation = _lastPlayerLocation.ToString();
                     RecordMovementOutput(recordLocation);
@@ -216,6 +189,18 @@ namespace Recording
 
                 movementOffsetTimer = 0f;
             }
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (!_testModeIsSet)
+            {
+                _testMode = ModeManagerEvents.GetCurrentMode();
+                SetOutputFileName();
+            }
+
+            MovementCheck();
         }
     }
 }
