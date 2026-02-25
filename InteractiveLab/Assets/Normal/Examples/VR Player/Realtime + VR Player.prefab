@@ -44,10 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: -1424795628, guid: ebae63e7edba59945a994528ada1f7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _autoInitialized: 1
   _obsoleteAppKey: 
-  _normcoreAppSettings: {fileID: 0}
-  _roomToJoinOnStart: Test Room
+  _normcoreAppSettings: {fileID: 11400000, guid: 919e10a8386defc4299fd186e602a0e4,
+    type: 2}
   _joinRoomOnStart: 1
+  _roomToJoinOnStart: Test Room
+  _roomServerConfigurationToJoinOnStart: 
+  _useOfflineModeForJoinRoomOnStart: 0
 --- !u!114 &114568985850100520
 MonoBehaviour:
   m_ObjectHideFlags: 0

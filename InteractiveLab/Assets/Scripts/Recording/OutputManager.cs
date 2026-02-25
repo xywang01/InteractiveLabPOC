@@ -49,6 +49,7 @@ namespace Recording
         void Start()
         {
             _participantsFileName = $"{_outputFolder}/participant_data.csv";
+            _participantsFileName = Application.persistentDataPath + "/participant_data.csv";
             if (!System.IO.File.Exists(_participantsFileName))
             {
                 File.AppendAllText(_participantsFileName, "Timestamp,ParticipantID,ParticipantSex,ParticipantAge" + Environment.NewLine);
@@ -67,7 +68,8 @@ namespace Recording
         {
             // Create output file name
             _outputFileName = $"{_outputFolder}/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
-            
+            _outputFileName = Application.persistentDataPath + $"/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
+
             // check for duplicate files
             int fileCount = 0;
             while (System.IO.File.Exists(_outputFileName))
