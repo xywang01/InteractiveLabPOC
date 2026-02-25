@@ -12,20 +12,39 @@ namespace Recording
             Female
         }
 
+        private enum FileOutputType
+        {
+            Interaction,
+            Movement,
+            Vision
+        }
+
         public string participantId;
         public Sex participantSex;
         public int participantAge;
 
+        public Transform screenPosition;
+        public Transform VRPosition;
+        public float movementOffsetTimeCheck = 0.5f;
+        public float movementOffsetDistanceCheck = 1f;
+        private float movementOffsetTimer = 0f;
+
         private bool _testModeIsSet = false;
         private TestMode _testMode;
+        private Transform _playerPosition;
+        private Vector3 _lastPlayerLocation = new Vector3(0, 0, 0);
 
         private string _systemType;
 
         private string _outputFolder;
-        private string _outputFileName;
+        private string _interactionOutputFileName;
+        private string _movementOutputFileName;
+        private string _visionOutputFileName;
         private string _participantsFileName;
 
-        private RecordingTable _outputTable;
+        private RecordingTable _interactionOutputTable;
+        private RecordingTable _movementOutputTable;
+        private RecordingTable _visionOutputTable;
 
         private void OnEnable()
         {
@@ -48,7 +67,16 @@ namespace Recording
         // Start is called before the first frame update
         void Start()
         {
-            _outputFolder = Path.Combine(Application.persistentDataPath, $"par_{ participantId}");
+            if (_testMode == TestMode.Screen)
+            {
+                _playerPosition = screenPosition;
+            }
+            else
+            {
+                _playerPosition = VRPosition;
+            }
+
+                _outputFolder = Path.Combine(Application.persistentDataPath, $"par_{participantId}");
 
             if (!Directory.Exists(_outputFolder))
             {
@@ -64,28 +92,66 @@ namespace Recording
             File.AppendAllText(_participantsFileName, $"{DateTime.Now:yyyyMMdd},{participantId},{participantSex},{participantAge}" + Environment.NewLine);
 
             // EQUIPMENT RECORDING SETUP ========================================
-            _outputTable = new RecordingTable();
-            _outputTable.AddColumn("ComponentID", Type.GetType("System.String"));
-            _outputTable.AddColumn("ComponentState", Type.GetType("System.String"));
-            _outputTable.AddColumn("SystemType", Type.GetType("System.String"));
+            _interactionOutputTable = new RecordingTable();
+            _interactionOutputTable.AddColumn("ComponentID", Type.GetType("System.String"));
+            _interactionOutputTable.AddColumn("ComponentState", Type.GetType("System.String"));
+            _interactionOutputTable.AddColumn("SystemType", Type.GetType("System.String"));
+
+            // MOVEMENT RECORDING SETUP ========================================
+            _movementOutputTable = new RecordingTable();
+            _movementOutputTable.AddColumn("Location", Type.GetType("System.String"));
         }
 
         void SetOutputFileName()
         {
             // Create output file name
-            //_outputFileName = $"{_outputFolder}/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
-            _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
+            //switch (type)
+            //{
+            //    case FileOutputType.Interaction:
+            //        _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_interaction_{DateTime.Now:yyyyMMdd}.csv";
+            //        break;
+            //    case FileOutputType.Movement:
+            //        _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_movement_{DateTime.Now:yyyyMMdd}.csv";
+            //        break;
+            //    case FileOutputType.Vision:
+            //        _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_vision_{DateTime.Now:yyyyMMdd}.csv";
+            //        break;
+            //    default:
+            //        _outputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_{DateTime.Now:yyyyMMdd}.csv";
+            //        break;
+            //}
+
+            _interactionOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_interaction_{DateTime.Now:yyyyMMdd}.csv";
+            _movementOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_movement_{DateTime.Now:yyyyMMdd}.csv";
+            _visionOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_vision_{DateTime.Now:yyyyMMdd}.csv";
 
             // check for duplicate files
+            //int fileCount = 0;
+            //while (System.IO.File.Exists(_interactionOutputFileName))
+            //{
+            //    string fileCountOld = fileCount == 0 ? "" : fileCount.ToString();
+            //    string oldChar = fileCount == 0 ? $"{fileCountOld}.csv" : $"_{fileCountOld}.csv";
+
+            //    fileCount++;
+            //    string newChar = $"_{fileCount}.csv";
+            //    _interactionOutputFileName = _interactionOutputFileName.Replace(oldChar, newChar);
+            //}
+            CheckForDuplicates(_interactionOutputFileName);
+            CheckForDuplicates(_movementOutputFileName);
+            CheckForDuplicates(_visionOutputFileName);
+        }
+
+        private void CheckForDuplicates(string fileName)
+        {
             int fileCount = 0;
-            while (System.IO.File.Exists(_outputFileName))
+            while (System.IO.File.Exists(fileName))
             {
                 string fileCountOld = fileCount == 0 ? "" : fileCount.ToString();
                 string oldChar = fileCount == 0 ? $"{fileCountOld}.csv" : $"_{fileCountOld}.csv";
-                
+
                 fileCount++;
                 string newChar = $"_{fileCount}.csv";
-                _outputFileName = _outputFileName.Replace(oldChar, newChar);
+                fileName = fileName.Replace(oldChar, newChar);
             }
         }
     
@@ -94,7 +160,7 @@ namespace Recording
             Debug.Log("Recording Output");
             Debug.Log(componentID);
             Debug.Log(componentState);
-            _outputTable.AddRow(new TableCell<object>[]
+            _interactionOutputTable.AddRow(new TableCell<object>[]
             {
                 new TableCell<object>("SystemType", _systemType), 
                 new TableCell<object>("ComponentID", componentID), 
@@ -102,16 +168,53 @@ namespace Recording
             });
             
             // save the data everytime the table is updated - overwrite!
-            _outputTable.ToCsv(_outputFileName, allowOverwrite:true);
+            _interactionOutputTable.ToCsv(_interactionOutputFileName, allowOverwrite:true);
+        }
+
+        private void RecordMovementOutput(string location)
+        {
+            _movementOutputTable.AddRow(new TableCell<object>[]
+            {
+                new TableCell<object>("Location", location)
+            });
+
+            // save the data everytime the table is updated - overwrite!
+            _movementOutputTable.ToCsv(_movementOutputFileName, allowOverwrite: true);
         }
 
         // Update is called once per frame
         void Update()
         {
+            //Debug.Log(_lastPlayerLocation);
+            //Debug.Log(_playerPosition.position);
             if (!_testModeIsSet)
             {
                 _testMode = ModeManagerEvents.GetCurrentMode();
                 SetOutputFileName();
+            }
+
+            if (movementOffsetTimer <= movementOffsetTimeCheck)
+            {
+                movementOffsetTimer += Time.deltaTime;
+            }
+            else
+            {
+                Debug.Log("Move check");
+                _lastPlayerLocation.y = 0;
+                Vector3 currentLocation = _playerPosition.position;
+                currentLocation.y = 0;
+                Vector3 distance = currentLocation - _lastPlayerLocation;
+                Debug.Log(distance.sqrMagnitude);
+
+                if (distance.sqrMagnitude >= movementOffsetDistanceCheck)
+                {
+                    Debug.Log("Move record");
+                    _lastPlayerLocation = _playerPosition.position;
+                    string recordLocation = _lastPlayerLocation.ToString();
+                    RecordMovementOutput(recordLocation);
+                }
+
+                movementOffsetTimer = 0f;
             }
         }
     }
