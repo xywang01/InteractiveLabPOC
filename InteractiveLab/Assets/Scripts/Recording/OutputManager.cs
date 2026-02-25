@@ -25,14 +25,21 @@ namespace Recording
 
         public Transform screenPosition;
         public Transform VRPosition;
+        public Transform screenCamera;
+        public Transform VRCamera;
         public float movementOffsetTimeCheck = 0.5f;
         public float movementOffsetDistanceCheck = 1f;
         private float movementOffsetTimer = 0f;
+        public float visionOffsetTimeCheck = 0.25f;
+        public float visionOffsetAngleCheck = 5f;
+        private float visionOffsetTimer = 0f;
 
         private bool _testModeIsSet = false;
         private TestMode _testMode;
         private Transform _playerPosition;
+        private Transform _playerCamera;
         private Vector3 _lastPlayerLocation = new Vector3(0, 0, 0);
+        private float _lastPlayerRotation = 0f;
 
         private string _systemType;
 
@@ -70,10 +77,12 @@ namespace Recording
             if (_testMode == TestMode.Screen)
             {
                 _playerPosition = screenPosition;
+                _playerCamera = screenCamera;
             }
             else
             {
                 _playerPosition = VRPosition;
+                _playerCamera = VRCamera;
             }
 
                 _outputFolder = Path.Combine(Application.persistentDataPath, $"par_{participantId}");
@@ -100,6 +109,10 @@ namespace Recording
             // MOVEMENT RECORDING SETUP ========================================
             _movementOutputTable = new RecordingTable();
             _movementOutputTable.AddColumn("Location", Type.GetType("System.String"));
+
+            // MOVEMENT RECORDING SETUP ========================================
+            _visionOutputTable = new RecordingTable();
+            _visionOutputTable.AddColumn("Angle", Type.GetType("System.String"));
         }
 
         void SetOutputFileName()
@@ -166,6 +179,17 @@ namespace Recording
             _movementOutputTable.ToCsv(_movementOutputFileName, allowOverwrite: true);
         }
 
+        private void RecordVisionOutput(string angle)
+        {
+            _visionOutputTable.AddRow(new TableCell<object>[]
+            {
+                new TableCell<object>("Angle", angle)
+            });
+
+            // save the data everytime the table is updated - overwrite!
+            _visionOutputTable.ToCsv(_visionOutputFileName, allowOverwrite: true);
+        }
+
         private void MovementCheck()
         {
             if (movementOffsetTimer <= movementOffsetTimeCheck)
@@ -178,7 +202,6 @@ namespace Recording
                 Vector3 currentLocation = _playerPosition.position;
                 currentLocation.y = 0;
                 Vector3 distance = currentLocation - _lastPlayerLocation;
-                Debug.Log(distance.sqrMagnitude);
 
                 if (distance.sqrMagnitude >= movementOffsetDistanceCheck)
                 {
@@ -188,6 +211,28 @@ namespace Recording
                 }
 
                 movementOffsetTimer = 0f;
+            }
+        }
+
+        private void VisionCheck()
+        {
+            if (visionOffsetTimer <= visionOffsetTimeCheck)
+            {
+                visionOffsetTimer += Time.deltaTime;
+            }
+            else
+            {
+                float currentRotation = _playerCamera.transform.eulerAngles.x;
+                float distance = currentRotation - _lastPlayerRotation;
+
+                if (distance >= visionOffsetAngleCheck)
+                {
+                    _lastPlayerRotation = _playerCamera.transform.eulerAngles.x;
+                    string recordAngle = _lastPlayerRotation.ToString();
+                    RecordVisionOutput(recordAngle);
+                }
+
+                visionOffsetTimer = 0f;
             }
         }
 
@@ -201,6 +246,7 @@ namespace Recording
             }
 
             MovementCheck();
+            VisionCheck();
         }
     }
 }

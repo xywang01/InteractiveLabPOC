@@ -52702,8 +52702,12 @@ MonoBehaviour:
   participantAge: 23
   screenPosition: {fileID: 1833113641}
   VRPosition: {fileID: 822474047}
-  movementOffsetTimeCheck: 1
+  screenCamera: {fileID: 963194228}
+  VRCamera: {fileID: 822474047}
+  movementOffsetTimeCheck: 0.25
   movementOffsetDistanceCheck: 15
+  visionOffsetTimeCheck: 0.25
+  visionOffsetAngleCheck: 5
 --- !u!4 &1633435584
 Transform:
   m_ObjectHideFlags: 0
