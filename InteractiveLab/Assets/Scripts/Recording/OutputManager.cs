@@ -225,7 +225,7 @@ namespace Recording
                 float currentRotation = _playerCamera.transform.eulerAngles.x;
                 float distance = currentRotation - _lastPlayerRotation;
 
-                if (distance >= visionOffsetAngleCheck)
+                if (Math.Abs(distance) >= visionOffsetAngleCheck)
                 {
                     _lastPlayerRotation = _playerCamera.transform.eulerAngles.x;
                     string recordAngle = _lastPlayerRotation.ToString();
