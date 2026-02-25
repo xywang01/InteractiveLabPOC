@@ -10,6 +10,7 @@ public class MapRecorder : MonoBehaviour
 
     private List<Transform> locations = new List<Transform>();
     public Recording.OutputManager outputManager;
+    public GameObject markerPrefab;
 
     public static MapRecorder Instance;
 
@@ -25,9 +26,14 @@ public class MapRecorder : MonoBehaviour
         }
     }
 
-    public IEnumerator GenerateMap()
+    public IEnumerator GenerateMap(Transform newLocation)
     {
         yield return new WaitForEndOfFrame();
+
+        locations.Add(newLocation);
+        Vector3 newPosition = newLocation.position;
+        newPosition.y += 1.5f;
+        Instantiate(markerPrefab, newPosition, Quaternion.identity);
 
         RenderTexture currentRT = RenderTexture.active;
         RenderTexture.active = cam.targetTexture;

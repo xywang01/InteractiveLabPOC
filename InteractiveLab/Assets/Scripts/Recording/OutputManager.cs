@@ -208,7 +208,7 @@ namespace Recording
                 {
                     _lastPlayerLocation = _playerPosition.position;
                     string recordLocation = _lastPlayerLocation.ToString();
-                    StartCoroutine(MapRecorder.Instance.GenerateMap());
+                    StartCoroutine(MapRecorder.Instance.GenerateMap(_playerPosition));
                     RecordMovementOutput(recordLocation);
                 }
 

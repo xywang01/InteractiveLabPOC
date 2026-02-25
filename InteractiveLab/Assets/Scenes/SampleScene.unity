@@ -19589,6 +19589,8 @@ MonoBehaviour:
   cam: {fileID: 495838770}
   textureSize: 1024
   outputManager: {fileID: 1633435583}
+  markerPrefab: {fileID: 1206149012652978065, guid: 3bdc7ac87c1498f40a66de2422fd8cae,
+    type: 3}
 --- !u!4 &596054695
 Transform:
   m_ObjectHideFlags: 0
