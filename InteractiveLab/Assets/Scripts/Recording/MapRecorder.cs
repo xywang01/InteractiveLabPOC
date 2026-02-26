@@ -62,10 +62,9 @@ public class MapRecorder : MonoBehaviour
 
         Destroy(image);
 
-        string fileName = "map" + ".png";
-        string filePath = Path.Combine(outputManager.OutputFolder, fileName);
+        string fileName = outputManager.GetMapOutputName();
 
-        File.WriteAllBytes(filePath, bytes);
+        File.WriteAllBytes(fileName, bytes);
     }
 
     private void DrawLine()

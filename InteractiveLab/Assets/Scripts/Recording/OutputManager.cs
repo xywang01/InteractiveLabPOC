@@ -49,6 +49,7 @@ namespace Recording
         private string _movementOutputFileName;
         private string _visionOutputFileName;
         private string _participantsFileName;
+        private string _mapOutputFileName;
 
         private RecordingTable _interactionOutputTable;
         private RecordingTable _movementOutputTable;
@@ -147,9 +148,12 @@ namespace Recording
         void SetOutputFileName()
         {
             // Create output file name
-            _interactionOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_interaction_{DateTime.Now:yyyyMMdd}.csv";
-            _movementOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_movement_{DateTime.Now:yyyyMMdd}.csv";
-            _visionOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_vision_{DateTime.Now:yyyyMMdd}.csv";
+            var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm");
+
+            _interactionOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_interaction_{timestamp}.csv";
+            _movementOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_movement_{timestamp}.csv";
+            _visionOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_vision_{timestamp}.csv";
+            _mapOutputFileName = _outputFolder + $"/par_{participantId}_{_testMode}_map_{timestamp}.png";
 
             // check for duplicate files
             //int fileCount = 0;
@@ -280,6 +284,11 @@ namespace Recording
 
             MovementCheck();
             VisionCheck();
+        }
+
+        public string GetMapOutputName()
+        {
+            return _mapOutputFileName;
         }
     }
 }
