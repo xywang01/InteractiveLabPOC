@@ -9,7 +9,8 @@ namespace Recording
         public enum Sex
         {
             Male,
-            Female
+            Female,
+            Other
         }
 
         private enum FileOutputType
@@ -139,9 +140,13 @@ namespace Recording
             {
                 participantSex = Sex.Male;
             }
-            else
+            else if (sex.ToLower() == "female")
             {
                 participantSex = Sex.Female;
+            }
+            else
+            {
+                participantSex = Sex.Other;
             }
         }
 
