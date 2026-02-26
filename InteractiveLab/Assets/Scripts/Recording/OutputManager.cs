@@ -238,9 +238,8 @@ namespace Recording
                     string recordLocation = _lastPlayerLocation.ToString();
                     StartCoroutine(MapRecorder.Instance.GenerateMap(_playerPosition));
                     RecordMovementOutput(recordLocation);
+                    movementOffsetTimer = 0f;
                 }
-
-                movementOffsetTimer = 0f;
             }
         }
 
@@ -260,9 +259,8 @@ namespace Recording
                     _lastPlayerRotation = _playerCamera.transform.eulerAngles.x;
                     string recordAngle = _lastPlayerRotation.ToString();
                     RecordVisionOutput(recordAngle);
+                    visionOffsetTimer = 0f;
                 }
-
-                visionOffsetTimer = 0f;
             }
         }
 

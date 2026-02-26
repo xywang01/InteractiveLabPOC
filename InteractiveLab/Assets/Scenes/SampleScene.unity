@@ -20326,9 +20326,11 @@ MonoBehaviour:
   cam: {fileID: 495838770}
   textureSize: 1024
   outputManager: {fileID: 1633435583}
-  markerPrefab: {fileID: 1206149012652978065, guid: 3bdc7ac87c1498f40a66de2422fd8cae,
+  baseMarkerPrefab: {fileID: 1206149012652978065, guid: 3bdc7ac87c1498f40a66de2422fd8cae,
     type: 3}
-  lineMaterial: {fileID: 2100000, guid: f024eb110adf4b24d83fe06615fd238c, type: 2}
+  upperMarkerPrefab: {fileID: 1206149012652978065, guid: fd8b8e5b860c08a449c6b6d62962286f,
+    type: 3}
+  lineMaterial: {fileID: 2100000, guid: dfaa4192b32e7f64aa0524e630a4b6e8, type: 2}
 --- !u!4 &596054695
 Transform:
   m_ObjectHideFlags: 0
@@ -55129,7 +55131,7 @@ MonoBehaviour:
   screenCamera: {fileID: 963194228}
   VRCamera: {fileID: 822474047}
   movementOffsetTimeCheck: 0.25
-  movementOffsetDistanceCheck: 15
+  movementOffsetDistanceCheck: 5
   visionOffsetTimeCheck: 0.25
   visionOffsetAngleCheck: 5
 --- !u!4 &1633435584

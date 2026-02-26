@@ -10,7 +10,8 @@ public class MapRecorder : MonoBehaviour
 
     private List<Vector3> positions = new List<Vector3>();
     public Recording.OutputManager outputManager;
-    public GameObject markerPrefab;
+    public GameObject baseMarkerPrefab;
+    public GameObject upperMarkerPrefab;
     public Material lineMaterial;
 
     public static MapRecorder Instance;
@@ -32,8 +33,19 @@ public class MapRecorder : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         Vector3 newPosition = newLocation.position;
-        newPosition.y += 1.5f;
-        Instantiate(markerPrefab, newPosition, Quaternion.identity);
+        Debug.Log(newPosition.y);
+        float difference = 284.5f - newPosition.y;
+        newPosition.y += 1.5f + difference;
+
+        if (difference > 0.1f)
+        {
+            Instantiate(baseMarkerPrefab, newPosition, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(upperMarkerPrefab, newPosition, Quaternion.identity);
+        }
+
         positions.Add(newPosition);
         DrawLine();
 
