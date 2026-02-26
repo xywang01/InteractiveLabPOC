@@ -11,7 +11,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool paused = false;
     public GameObject pauseMenuUI;
-    // public GameObject vrCanvas;
+    public GameObject expandedView;
     
     [SerializeField]
     private XRNode xrNode = XRNode.RightHand;
@@ -110,6 +110,18 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         
         // Debug.Log($"Pause menu is active, Paused is {paused}");
+    }
+
+    public void ExpandView()
+    {
+        if (expandedView.activeSelf)
+        {
+            expandedView.SetActive(false);
+        }
+        else
+        {
+            expandedView.SetActive(true);
+        }
     }
 
     public void Exit() {
