@@ -13,7 +13,6 @@ public class PRVValve : Valve
     public bool rotateHorizontal;
 
     public void TurnValve(string direction) {
-        OutputManagerEvents.RecordToOutput(id, $"Turn {turn.ToString()}");
         FindObjectOfType<SoundManager>().Play("TurnCircleValve");
         float turnAngle;
 
@@ -37,6 +36,8 @@ public class PRVValve : Valve
         if (direction == "right" && turn >= maxTurn) {
             turn = 0;
         }
+
+        OutputManagerEvents.RecordToOutput(id, $"Turn {turn.ToString()}");
 
         if (target != null)
         {

@@ -33,5 +33,6 @@ public class ParticipantInfo : MonoBehaviour
         mouseLook.ActivateMouseLook();
         movement.ActivateMovement();
         Time.timeScale = 1f;
+        Cursor.visible = false;
     }
 }

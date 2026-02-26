@@ -99,7 +99,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         paused = false;
         Cursor.lockState = CursorLockMode.Locked;
-        
+        Cursor.visible = false;
+
         // Debug.Log($"Pause menu is inactive, Paused is {paused}");
     }
 
@@ -108,7 +109,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         paused = true;
         Cursor.lockState = CursorLockMode.Confined;
-        
+        Cursor.visible = true;
+
         // Debug.Log($"Pause menu is active, Paused is {paused}");
     }
 
