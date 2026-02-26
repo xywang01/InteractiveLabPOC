@@ -36,6 +36,10 @@ public class PDSystemState : MonoBehaviour
     public Text timePlayed; // final time to be displayed in end screen
     public Text timePlayedVR; // final time to be displayed in end screen
 
+    // Temp to avoid issues
+    public TwoWayValve HS201;
+    public TwoWayValve HS301;
+
     private Text _finalScoreActive;
     private Text _timePlayedActive;
     
@@ -285,7 +289,7 @@ public class PDSystemState : MonoBehaviour
             (2, () => CheckTurn("FIC204", 0) && !CheckOpen("HV203") && !CheckOpen("HS201"), () => SetState(2)),
             (3, () => CheckOpen("HV303"), () => SetState(3)),
             (4, () => !CheckOpen("HV402") && CheckOpen("HV403") && !CheckOpen("HS301"), () => SetState(4)),
-            (5, () => !CheckOpen("FIC703") && !CheckOpen("HV701"), CompletePartThree) // todo update instructions
+            (5, () => CheckTurn("FIC703", 0) && CheckPosition("HV701", Position.Bottom), CompletePartThree) // todo update instructions
         };
 
         ExecuteSteps(steps);
@@ -315,7 +319,20 @@ public class PDSystemState : MonoBehaviour
     // check if a two way valve is open given valve id
     private bool CheckOpen(string id)
     {
-        bool isOpen = Array.Find(twoWayValves, v => v.id == id).open;
+        bool isOpen;
+        Debug.Log(id);
+        if (id == "HS301")
+        {
+            isOpen = HS301.open;
+        }
+        else if (id == "HS201")
+        {
+            isOpen = HS201.open;
+        }
+        else
+        {
+            isOpen = Array.Find(twoWayValves, v => v.id == id).open;
+        }
         return isOpen;
     }
 
@@ -336,6 +353,10 @@ public class PDSystemState : MonoBehaviour
     {
         int nTurns = Array.Find(PRVs, v => v.id == id).turn;
         Debug.Log($"PRV valve {id} has {Array.Find(PRVs, v => v.id == id).turn} turns");
+        if (turn  == 0)
+        {
+            return nTurns == turn;
+        }
         return  nTurns >= turn;
     }
 

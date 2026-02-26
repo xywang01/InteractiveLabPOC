@@ -71752,6 +71752,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 507942907}
     - target: {fileID: 539039220, guid: ddccd7efe0a7dca4b9c7296b1b425037, type: 3}
+      propertyPath: HS201
+      value: 
+      objectReference: {fileID: 35257101}
+    - target: {fileID: 539039220, guid: ddccd7efe0a7dca4b9c7296b1b425037, type: 3}
+      propertyPath: HS301
+      value: 
+      objectReference: {fileID: 1009331200}
+    - target: {fileID: 539039220, guid: ddccd7efe0a7dca4b9c7296b1b425037, type: 3}
       propertyPath: score
       value: 
       objectReference: {fileID: 1399445903}
