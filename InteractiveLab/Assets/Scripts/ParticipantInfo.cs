@@ -19,6 +19,7 @@ public class ParticipantInfo : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        Time.timeScale = 0f;
     }
 
     public void Submit()
@@ -31,5 +32,6 @@ public class ParticipantInfo : MonoBehaviour
         outputManager.Setup(age, id, sex);
         mouseLook.ActivateMouseLook();
         movement.ActivateMovement();
+        Time.timeScale = 1f;
     }
 }
