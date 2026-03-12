@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 049dd9bd72e274348a31e837a4a144d6,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -16521,7 +16521,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -20727,6 +20727,7 @@ MonoBehaviour:
   upperMarkerPrefab: {fileID: 1206149012652978065, guid: fd8b8e5b860c08a449c6b6d62962286f,
     type: 3}
   lineMaterial: {fileID: 2100000, guid: dfaa4192b32e7f64aa0524e630a4b6e8, type: 2}
+  generateMissingMaps: 0
 --- !u!4 &596054695
 Transform:
   m_ObjectHideFlags: 0
