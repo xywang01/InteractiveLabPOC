@@ -77764,9 +77764,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1622744052}
     - target: {fileID: 1063397911, guid: ddccd7efe0a7dca4b9c7296b1b425037, type: 3}
+      propertyPath: m_OnSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1063397911, guid: ddccd7efe0a7dca4b9c7296b1b425037, type: 3}
+      propertyPath: m_OnSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2000581781}
+    - target: {fileID: 1063397911, guid: ddccd7efe0a7dca4b9c7296b1b425037, type: 3}
       propertyPath: m_OnSelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 507942907}
+    - target: {fileID: 1063397911, guid: ddccd7efe0a7dca4b9c7296b1b425037, type: 3}
+      propertyPath: m_OnSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TurnValve
+      objectReference: {fileID: 0}
     - target: {fileID: 1377661935, guid: ddccd7efe0a7dca4b9c7296b1b425037, type: 3}
       propertyPath: target
       value: 

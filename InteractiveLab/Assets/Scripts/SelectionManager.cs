@@ -252,6 +252,7 @@ public class SelectionManager : MonoBehaviour
                 leftPrevPressed = leftPressed;
                 rightPrevPressed = rightPressed;
             }
+        }
 
             if (selection.CompareTag(circleValveTag))
             {
@@ -411,5 +412,4 @@ public class SelectionManager : MonoBehaviour
                 }
             }
         }
-    }
 }
