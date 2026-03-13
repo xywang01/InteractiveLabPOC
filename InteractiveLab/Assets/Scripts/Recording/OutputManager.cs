@@ -253,7 +253,10 @@ namespace Recording
                 {
                     _lastPlayerLocation = _playerPosition.position;
                     string recordLocation = _lastPlayerLocation.ToString();
-                    StartCoroutine(MapRecorder.Instance.GenerateMap(_playerPosition));
+                    if (_testMode == TestMode.Screen)
+                    {
+                        StartCoroutine(MapRecorder.Instance.GenerateMap(_playerPosition));
+                    }
                     RecordMovementOutput(recordLocation);
                     movementOffsetTimer = 0f;
                 }
