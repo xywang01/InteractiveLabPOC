@@ -186,8 +186,19 @@ public class MapRecorder : MonoBehaviour
 
             LineRenderer lr = lineObj.AddComponent<LineRenderer>();
             lr.positionCount = 2;
-            lr.SetPosition(0, positions[i]);
-            lr.SetPosition(1, positions[i-1]);
+            Vector3 position1 = positions[i];
+            Vector3 position2 = positions[i-1];
+
+            float difference;
+
+            difference = 284.5f - position1.y;
+            position1.y += 1.5f + difference;
+
+            difference = 284.5f - position2.y;
+            position2.y += 1.5f + difference;
+
+            lr.SetPosition(0, position1);
+            lr.SetPosition(1, position2);
 
             lr.widthMultiplier = 0.1f;
             lr.material = lineMaterial;

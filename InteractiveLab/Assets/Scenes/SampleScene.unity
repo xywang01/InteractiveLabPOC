@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 049dd9bd72e274348a31e837a4a144d6,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -15349,7 +15349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &437946769
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31534,7 +31534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &844042001
 Transform:
   m_ObjectHideFlags: 0
@@ -41497,7 +41497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1140358955
 RectTransform:
   m_ObjectHideFlags: 0
@@ -44502,7 +44502,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 1622744052}
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 4294967295
   m_AttachTransform: {fileID: 0}
   m_StartingSelectedInteractable: {fileID: 0}
   m_OnHoverEntered:
@@ -44561,7 +44561,7 @@ MonoBehaviour:
   m_HoverTimeToSelect: 0.5
   m_EnableUIInteraction: 1
   m_AllowAnchorControl: 1
-  m_UseForceGrab: 1
+  m_UseForceGrab: 0
   m_RotateSpeed: 180
   m_TranslateSpeed: 1
 --- !u!114 &1233208759
@@ -46009,7 +46009,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 1622744052}
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 4294967295
   m_AttachTransform: {fileID: 0}
   m_StartingSelectedInteractable: {fileID: 0}
   m_OnHoverEntered:
@@ -46068,7 +46068,7 @@ MonoBehaviour:
   m_HoverTimeToSelect: 0.5
   m_EnableUIInteraction: 1
   m_AllowAnchorControl: 1
-  m_UseForceGrab: 1
+  m_UseForceGrab: 0
   m_RotateSpeed: 180
   m_TranslateSpeed: 1
 --- !u!114 &1279644662
@@ -63827,7 +63827,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763995297}
   m_LocalRotation: {x: 0.01300552, y: -0, z: -0, w: 0.9999154}
-  m_LocalPosition: {x: 0.41997653, y: -4.499997, z: -8.37}
+  m_LocalPosition: {x: 0.41997653, y: -4.45, z: -8.37}
   m_LocalScale: {x: 0.09998681, y: 0.09998682, z: 0.09998682}
   m_Children: []
   m_Father: {fileID: 1139987445}
@@ -74782,7 +74782,7 @@ MonoBehaviour:
     m_Options:
     - m_Text: Choose...
       m_Image: {fileID: 0}
-    - m_Text: <18
+    - m_Text: 17
       m_Image: {fileID: 0}
     - m_Text: 18
       m_Image: {fileID: 0}
@@ -74810,7 +74810,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: 30
       m_Image: {fileID: 0}
-    - m_Text: '>30'
+    - m_Text: 31
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -74968,7 +74968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2098383735
 Transform:
   m_ObjectHideFlags: 0
@@ -76006,6 +76006,8 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: 0fe4b1527d4123740b400b9ee37de98d, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 773068fe7fdeb984190565aa2d4c247b, type: 2}
   distanceToSee: 300
+  leftRayInteractor: {fileID: 1585726912}
+  rightRayInteractor: {fileID: 531174088}
   interactCaption: {fileID: 1570280591}
   captionBackground: {fileID: 1385079568}
   interactCaptionVR: {fileID: 1140358956}
