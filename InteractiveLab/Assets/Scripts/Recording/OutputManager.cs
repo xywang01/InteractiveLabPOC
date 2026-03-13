@@ -62,17 +62,25 @@ namespace Recording
         {
             OutputManagerEvents.OnRecord += RecordOutput;
             OutputManagerEvents.OnSetSystem += SetSystemType;
+            ModeManagerEvents.OnSetMode += SetTestMode;
         }
 
         private void OnDisable()
         {
             OutputManagerEvents.OnRecord -= RecordOutput;
             OutputManagerEvents.OnSetSystem -= SetSystemType;
+            ModeManagerEvents.OnSetMode -= SetTestMode;
         }
         
         private void SetSystemType(string systemType)
         {
+            Debug.Log($"System Type {systemType}");
             _systemType = systemType;
+        }
+
+        private void SetTestMode(TestMode testMode)
+        {
+            _testMode = testMode;
             _testModeIsSet = true;
         }
 
