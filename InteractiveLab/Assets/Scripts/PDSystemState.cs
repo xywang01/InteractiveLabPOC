@@ -242,8 +242,8 @@ public class PDSystemState : MonoBehaviour
             (4, () => CheckTurn("HV806", 1), () => SetState(4)),
             (5, () => CheckTurn("PRV807", 1), () => { SetState(5); UpdateGaugeValue("PI802", 10); }),
             (6, () => CheckCircle("HV704") && CheckCircle("HV705"), () => SetState(6)),
-            (7, () => true, CompletePartOne)
-            /*(7, () => checkOpen("HV901"), () => CompletePartOne())*/
+            //(7, () => true, CompletePartOne)
+            (7, () => CheckTurn("HV901", 1), () => CompletePartOne())
         };
 
         ExecuteSteps(steps);
