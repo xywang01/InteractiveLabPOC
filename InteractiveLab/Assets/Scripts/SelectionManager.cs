@@ -176,6 +176,10 @@ public class SelectionManager : MonoBehaviour
             }
             else
             {
+                if (hit.distance < 0.2)
+                {
+                    return;
+                }
                 InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
                 InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
 
@@ -226,6 +230,10 @@ public class SelectionManager : MonoBehaviour
             }
             else
             {
+                if (hit.distance < 1)
+                {
+                    return;
+                }
                 InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
                 InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
 
@@ -281,7 +289,11 @@ public class SelectionManager : MonoBehaviour
                 }
                 else
                 {
-                    InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+                if (hit.distance < 1)
+                {
+                    return;
+                }
+                InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
                     InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
 
                     bool leftPressed = false;
@@ -342,7 +354,11 @@ public class SelectionManager : MonoBehaviour
                     }
                 }
                 else
-                {
+                if (hit.distance < 1)
+            {
+                return;
+            }
+            {
                     InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
                     InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
 
@@ -385,7 +401,11 @@ public class SelectionManager : MonoBehaviour
                 }
                 else
                 {
-                    InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+                if (hit.distance < 1)
+                {
+                    return;
+                }
+                InputDevice leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
                     InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
 
                     bool leftPressed = false;
